@@ -16,7 +16,7 @@ createServer({
           type: "income",
           category: "work",
           amount: 45000,
-          createdAt: new Date("2023-02-12 09:00:00")
+          createdAt: new Date('2021-02-12 09:00:00'),
         },
         {
           id: 2,
@@ -24,7 +24,7 @@ createServer({
           type: "outcome",
           category: "insurance",
           amount: 1200,
-          createdAt: new Date("2023-02-12 09:00:00")
+          createdAt: new Date('2021-02-12 09:00:00'),
         }
       ]}
     )

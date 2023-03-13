@@ -30,7 +30,7 @@ export const Container = styled.div`
             &.withdraw{
                 color: var(--red)
             }
-            &.deposit{
+            &.income{
                 color: var(--green)
             }
         }

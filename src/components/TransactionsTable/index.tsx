@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
+import { api } from '../../services/api';
 import { Container } from './styles';
 
 export function TransactionsTable(){
     useEffect(() => {
         // precisa sempre adicionar todo o endereco, e melhor usar uma biblioteca http
-        fetch("http://localhost:3000/api/transactions")
-        .then(reponse => reponse.json())
-        .then(data => console.log(data))
+        // fetch("http://localhost:3000/api/transactions")
+        api.get("transactions")
+        // .then(reponse => reponse.json())
+        .then(response => console.log(response.data))
     }, [])
     
     return (

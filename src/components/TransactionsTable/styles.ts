@@ -28,7 +28,7 @@ export const Container = styled.div`
                 color: var(--text-title);
             }
 
-            &.withdraw{
+            &.outcome{
                 color: var(--red)
             }
             &.income{

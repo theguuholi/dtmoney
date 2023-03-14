@@ -1,39 +1,73 @@
-import { Container } from './styles';
+import { Container } from "./styles";
 import incomeImg from "../../assets/income.svg";
 import outcomeImg from "../../assets/outcome.svg";
 import totalImg from "../../assets/total.svg";
-import { TransactionsContexts } from '../../TransactionsContexts';
-import { useContext } from 'react';
+import { TransactionsContexts } from "../../TransactionsContexts";
+import { useContext } from "react";
 
-export function Summary(){
-    const {transactions} = useContext(TransactionsContexts);
-    console.log(transactions)
+export function Summary() {
+  const { transactions } = useContext(TransactionsContexts);
 
+  const summary = transactions.reduce(
+    (acc, transaction) => {
+      if (transaction.type === "income") {
+        acc.incomes += transaction.amount;
+        acc.total += transaction.amount;
+      }
+      if (transaction.type === "outcome") {
+        acc.outcomes += transaction.amount;
+        acc.total -= transaction.amount;
+      }
 
-    return (
-        <Container>
-            <div>
-                <header>
-                    <p>Entradas</p>
-                    <img src={incomeImg} alt="Entradas" />
-                </header>
-                <strong>100</strong>
-            </div>
-            <div>
-                <header>
-                    <p>Saidas</p>
-                    <img src={outcomeImg} alt="Saidas" />
-                </header>
-                <strong>-100</strong>
-            </div>
+      return acc;
+    },
+    {
+      incomes: 0,
+      outcomes: 0,
+      total: 0,
+    }
+  );
 
-            <div className='highlight-background'>
-                <header>
-                    <p>Total</p>
-                    <img src={totalImg} alt="Total" />
-                </header>
-                <strong>-100</strong>
-            </div>
-        </Container>
-    )
+  return (
+    <Container>
+      <div>
+        <header>
+          <p>Entradas</p>
+          <img src={incomeImg} alt="Entradas" />
+        </header>
+        <strong>
+          {new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(summary.incomes)}
+        </strong>
+      </div>
+      <div>
+        <header>
+          <p>Saidas</p>
+          <img src={outcomeImg} alt="Saidas" />
+        </header>
+        <strong>
+          -
+          {new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(summary.outcomes)}
+        </strong>
+      </div>
+
+      <div className="highlight-background">
+        <header>
+          <p>Total</p>
+          <img src={totalImg} alt="Total" />
+        </header>
+        <strong>
+          {new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).format(summary.total)}
+        </strong>
+      </div>
+    </Container>
+  );
 }

@@ -1,27 +1,9 @@
-import { useEffect, useState } from "react";
-import { api } from "../../services/api";
+import { useContext, useEffect, useState } from "react";
+import { TransactionsContexts } from "../../TransactionsContexts";
 import { Container } from "./styles";
 
-interface Transaction {
-  id: number;
-  title: string;
-  amount: number;
-  type: string;
-  category: string;
-  createdAt: string;
-}
-
 export function TransactionsTable() {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-
-  useEffect(() => {
-    // precisa sempre adicionar todo o endereco, e melhor usar uma biblioteca http
-    // fetch("http://localhost:3000/api/transactions")
-    api
-      .get("transactions")
-      // .then(reponse => reponse.json())
-      .then((response) => setTransactions(response.data.transactions));
-  }, []);
+  const transactions = useContext(TransactionsContexts);
 
   return (
     <Container>
